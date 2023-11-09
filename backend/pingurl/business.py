@@ -1,9 +1,11 @@
+"""business"""
 from pingurl import schedule, persistance
 from pingurl.models import WatchedUrl
 from pingurl.ping import send_ping
 
 
 def add_watched_url(watched_url):
+    """adds watched url"""
     if not isinstance(watched_url, WatchedUrl):
         raise ValueError("watched_url must be a WatchedUrl instance")
 
@@ -25,6 +27,7 @@ def add_watched_url(watched_url):
 
 
 def delete_watched_url(url_id):
+    """deletes watched url"""
     if not isinstance(url_id, int):
         raise ValueError("url_id must be an integer")
 
@@ -34,5 +37,4 @@ def delete_watched_url(url_id):
 
 
 class AddWatchedUrlError(Exception):
-    def __init__(self, message):
-        super().__init__(message)
+    """raise watched url error"""
