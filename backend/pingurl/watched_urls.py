@@ -25,10 +25,10 @@ def add_watched_url():
             activate_at = datetime.fromisoformat(
                 data["activateAt"].replace("Z", "+00:00")
             )
-        except ValueError as e:
+        except ValueError as error:
             raise BadRequest(
                 "The 'activateAt' parameter must an ISO 8601 date-time."
-            ) from e
+            ) from error
 
         force = data.get("force", False)
 
@@ -60,11 +60,11 @@ def add_watched_url():
 
             return jsonify({"message": "Watched URL added", "urlId": url_id}), 201
 
-        except business.AddWatchedUrlError as e:
-            raise BadRequest(str(e)) from e
+        except business.AddWatchedUrlError as error:
+            raise BadRequest(str(error)) from error
 
-    except BadRequest as e:
-        return jsonify({"error": "Bad request", "message": e.description}), 400
+    except BadRequest as error:
+        return jsonify({"error": "Bad request", "message": error.description}), 400
 
 
 @app.route("/watched-urls/<int:url_id>", methods=["DELETE"])
@@ -72,8 +72,8 @@ def delete_url(url_id):
     """Retrieves request to delete watched url"""
     try:
         business.delete_watched_url(url_id)
-    except persistance.WatchedUrlNotFoundError as e:
-        return jsonify({"error": str(e)}), 404
+    except persistance.WatchedUrlNotFoundError as error:
+        return jsonify({"error": str(error)}), 404
 
     return jsonify({"message": f"Removed watched url with id {url_id}"}), 200
 
@@ -86,8 +86,8 @@ def get_url_data(url_id):
 
         return jsonify(url_data), 200
 
-    except persistance.WatchedUrlNotFoundError as e:
-        return jsonify({"error": str(e)}), 404
+    except persistance.WatchedUrlNotFoundError as error:
+        return jsonify({"error": str(error)}), 404
 
 
 @app.route("/watched-urls", methods=["GET"])
