@@ -73,7 +73,7 @@ class PingData:
             "statusCode": self.status_code,
         }
 
-    def ok(self):
+    def ok_status(self):
         return self.status_code < 400
 
     def __repr__(self):

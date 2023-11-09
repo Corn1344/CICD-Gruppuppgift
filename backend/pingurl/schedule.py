@@ -8,7 +8,7 @@ jobs = {}
 spread_start = 1
 
 
-def add(watched_url: WatchedUrl):
+def add_url(watched_url: WatchedUrl):
     url_id = watched_url.url_id
 
     now = datetime.now(timezone.utc)
@@ -34,7 +34,7 @@ def add(watched_url: WatchedUrl):
     jobs[url_id] = job.id
 
 
-def remove(url_id: WatchedUrl):
+def remove_url(url_id: WatchedUrl):
     job_id = jobs.get(url_id)
 
     if job_id is not None:

@@ -9,7 +9,7 @@ def add_watched_url(watched_url):
 
     ping_data = send_ping(watched_url)
 
-    if not ping_data.ok() and not watched_url.force:
+    if not ping_data.ok_status() and not watched_url.force:
         raise AddWatchedUrlError("Ping failed and force is false")
 
     url_id = persistance.add_watched_url(watched_url)
@@ -19,7 +19,7 @@ def add_watched_url(watched_url):
 
     persistance.add_ping_data(ping_data)
 
-    schedule.add(watched_url)
+    schedule.add_url(watched_url)
 
     return url_id
 
@@ -28,7 +28,7 @@ def delete_watched_url(url_id):
     if not isinstance(url_id, int):
         raise ValueError("url_id must be an integer")
 
-    schedule.remove(url_id)
+    schedule.remove_url(url_id)
 
     persistance.delete_watched_url(url_id)
 
