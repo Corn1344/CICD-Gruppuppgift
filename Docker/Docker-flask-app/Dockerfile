@@ -1,9 +1,9 @@
-FROM jenkins/jenkins
+FROM python
 
 WORKDIR /test
 
-COPY ../../backend .
+COPY /var/jenkins_home/workspace/clone-gh-repo-jenkins/backend .
 
-RUN pip install Flask apscheduler validators requests
+RUN apt install Flask apscheduler validators requests
 
 ENTRYPOINT flask run --host=0.0.0.0
