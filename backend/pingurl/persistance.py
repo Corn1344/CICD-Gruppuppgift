@@ -1,3 +1,5 @@
+"""perstistance"""
+
 from pingurl.models import WatchedUrl, PingData
 
 watched_urls = {}
@@ -6,6 +8,7 @@ next_id = 0
 
 
 def add_watched_url(watched_url: WatchedUrl):
+    """creates new watchedurl instance"""
     if not isinstance(watched_url, WatchedUrl):
         raise ValueError("watched_url must be a WatchedUrl instance")
 
@@ -23,6 +26,7 @@ def add_watched_url(watched_url: WatchedUrl):
 
 
 def get_watched_url(url_id):
+    """returns watched url"""
     if not isinstance(url_id, int):
         raise ValueError("url_id must be an integer")
 
@@ -33,6 +37,7 @@ def get_watched_url(url_id):
 
 
 def delete_watched_url(url_id):
+    """deletes watched url"""
     if not isinstance(url_id, int):
         raise ValueError("url_id must be an integer")
 
@@ -43,6 +48,7 @@ def delete_watched_url(url_id):
 
 
 def get_url_data(url_id):
+    """returns dict on url data and ping result"""
     if not isinstance(url_id, int):
         raise ValueError("url_id must be an integer")
 
@@ -62,10 +68,12 @@ def get_url_data(url_id):
 
 
 def get_url_ids():
+    """returns a list of all url ids"""
     return list(watched_urls.keys())
 
 
 def add_ping_data(ping_data: PingData):
+    """adds pingdata to list of pings"""
     if not isinstance(ping_data, PingData):
         raise ValueError("ping_data must be a PingData instance")
 
@@ -79,13 +87,13 @@ def add_ping_data(ping_data: PingData):
 
 
 def get_stats():
+    """returns stats"""
     ping_count = 0
-    for url_id in pings:
+    for url_id in pings.items():
         ping_count += len(pings[url_id])
 
     return {"watchedUrls": len(watched_urls), "pings": ping_count}
 
 
 class WatchedUrlNotFoundError(Exception):
-    def __init__(self, message):
-        super().__init__(message)
+    """raise error when watchedurl not found"""

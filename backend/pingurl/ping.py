@@ -1,3 +1,5 @@
+"""ping"""
+
 from datetime import datetime
 from email.utils import parsedate_to_datetime
 import requests
@@ -9,6 +11,7 @@ TIMEOUT = 10
 
 
 def send_ping(watched_url: WatchedUrl) -> PingData:
+    """sends ping to watched url"""
     if not isinstance(watched_url, WatchedUrl):
         raise ValueError("watched_url must be a WatchedUrl instance")
 
@@ -46,6 +49,7 @@ def send_ping(watched_url: WatchedUrl) -> PingData:
 
 
 def send_ping_persist_data(url_id: int):
+    """persist ping data"""
     try:
         watched_url = persistance.get_watched_url(url_id)
         persistance.add_ping_data(send_ping(watched_url))

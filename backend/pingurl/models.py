@@ -1,8 +1,11 @@
+"""models"""
 from datetime import datetime, timedelta
 import validators
 
 
 class WatchedUrl:
+    """watched url instance"""
+
     def __init__(
         self,
         activate_at: datetime,
@@ -29,6 +32,7 @@ class WatchedUrl:
         self.url_id = url_id
 
     def to_dict(self):
+        """returns all object values as dictionary"""
         return {
             "activateAt": self.activate_at.isoformat(),
             "force": self.force,
@@ -38,12 +42,15 @@ class WatchedUrl:
         }
 
     def __repr__(self):
-        return f"WatchedUrl({self.activate_at}, {self.force}, {self.period_sec}, {self.url}, {self.url_id})"
+        return f"WatchedUrl({self.activate_at}, {self.force}, {self.period_sec},\
+              {self.url}, {self.url_id})"
 
     __str__ = __repr__
 
 
 class PingData:
+    """ping instance"""
+
     def __init__(
         self,
         pinged_at: datetime,
@@ -66,6 +73,7 @@ class PingData:
         self.status_code = status_code
 
     def to_dict(self):
+        """returns all object values as dictionary"""
         return {
             "urlId": self.url_id,
             "pingedAt": self.pinged_at.isoformat(),
@@ -74,9 +82,11 @@ class PingData:
         }
 
     def ok_status(self):
+        """returns status code"""
         return self.status_code < 400
 
     def __repr__(self):
-        return f"PingData({self.url_id}, {self.pinged_at}, {self.response_time_sec}, {self.status_code})"
+        return f"PingData({self.url_id}, {self.pinged_at},\
+        {self.response_time_sec}, {self.status_code})"
 
     __str__ = __repr__

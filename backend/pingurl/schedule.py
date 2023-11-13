@@ -1,3 +1,5 @@
+"""schedule"""
+
 from datetime import datetime, timedelta, timezone
 from pingurl.ping import send_ping_persist_data
 from pingurl.watched_urls import WatchedUrl
@@ -9,6 +11,7 @@ spread_start = 1
 
 
 def add_url(watched_url: WatchedUrl):
+    """adds url"""
     url_id = watched_url.url_id
 
     now = datetime.now(timezone.utc)
@@ -35,6 +38,7 @@ def add_url(watched_url: WatchedUrl):
 
 
 def remove_url(url_id: WatchedUrl):
+    """removes url"""
     job_id = jobs.get(url_id)
 
     if job_id is not None:
