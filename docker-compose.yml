@@ -1,6 +1,11 @@
 services:
   jenkins:
-    image: jenkins/jenkins
+    build:
+      context: .
+      dockerfile: /Docker/Docker-pylint-support/Dockerfile
+    build:
+      context: .
+      dockerfile: /Docker/Docker-flask-app/Dockerfile
     privileged: true
     user: root
     ports:
