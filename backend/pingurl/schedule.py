@@ -1,3 +1,5 @@
+"""schedule"""
+
 from datetime import datetime, timedelta, timezone
 from pingurl.ping import send_ping_persist_data
 from pingurl.watched_urls import WatchedUrl
@@ -7,7 +9,9 @@ jobs = {}
 
 spread_start = 1
 
-def add(watched_url: WatchedUrl):
+
+def add_url(watched_url: WatchedUrl):
+    """adds url"""
     url_id = watched_url.url_id
 
     now = datetime.now(timezone.utc)
@@ -25,14 +29,16 @@ def add(watched_url: WatchedUrl):
     job = apscheduler.add_job(
         func=send_ping_persist_data,
         args=[url_id],  # Passing url_id as an argument to the job
-        trigger='interval',
+        trigger="interval",
         seconds=watched_url.period_sec,
-        start_date=datetime.now() + start_delay
+        start_date=datetime.now() + start_delay,
     )
 
     jobs[url_id] = job.id
 
-def remove(url_id: WatchedUrl):
+
+def remove_url(url_id: WatchedUrl):
+    """removes url"""
     job_id = jobs.get(url_id)
 
     if job_id is not None:

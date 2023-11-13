@@ -1,8 +1,19 @@
+"""models"""
 from datetime import datetime, timedelta
 import validators
 
+
 class WatchedUrl:
-    def __init__(self, activate_at: datetime, force: bool, period_sec: int, url: str, url_id: int = None):
+    """watched url instance"""
+
+    def __init__(
+        self,
+        activate_at: datetime,
+        force: bool,
+        period_sec: int,
+        url: str,
+        url_id: int = None,
+    ):
         if not isinstance(activate_at, datetime):
             raise ValueError("activate_at must be a datetime instance")
         if not isinstance(force, bool):
@@ -21,21 +32,32 @@ class WatchedUrl:
         self.url_id = url_id
 
     def to_dict(self):
+        """returns all object values as dictionary"""
         return {
             "activateAt": self.activate_at.isoformat(),
             "force": self.force,
             "periodSec": self.period_sec,
             "url": self.url,
-            "urlId": self.url_id
+            "urlId": self.url_id,
         }
 
     def __repr__(self):
-        return f"WatchedUrl({self.activate_at}, {self.force}, {self.period_sec}, {self.url}, {self.url_id})"
+        return f"WatchedUrl({self.activate_at}, {self.force}, {self.period_sec},\
+              {self.url}, {self.url_id})"
 
     __str__ = __repr__
 
+
 class PingData:
-    def __init__(self, pinged_at: datetime, response_time_sec: timedelta, status_code: int, url_id: int = None):
+    """ping instance"""
+
+    def __init__(
+        self,
+        pinged_at: datetime,
+        response_time_sec: timedelta,
+        status_code: int,
+        url_id: int = None,
+    ):
         if not isinstance(pinged_at, datetime):
             raise ValueError("pinged_at must be a datetime instance")
         if not isinstance(response_time_sec, timedelta):
@@ -51,17 +73,20 @@ class PingData:
         self.status_code = status_code
 
     def to_dict(self):
+        """returns all object values as dictionary"""
         return {
             "urlId": self.url_id,
             "pingedAt": self.pinged_at.isoformat(),
             "responseTimeSec": self.response_time_sec.total_seconds(),
-            "statusCode": self.status_code
+            "statusCode": self.status_code,
         }
-    
-    def ok(self):
+
+    def ok_status(self):
+        """returns status code"""
         return self.status_code < 400
 
     def __repr__(self):
-        return f"PingData({self.url_id}, {self.pinged_at}, {self.response_time_sec}, {self.status_code})"
+        return f"PingData({self.url_id}, {self.pinged_at},\
+        {self.response_time_sec}, {self.status_code})"
 
     __str__ = __repr__
