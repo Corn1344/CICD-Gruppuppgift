@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /test
 
-COPY /var/jenkins_home/workspace/clone-gh-repo-jenkins/backend .
+COPY ../../backend .
 
 RUN apt install Flask apscheduler validators requests
 
