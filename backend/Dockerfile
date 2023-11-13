@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /test
 
-COPY ../../backend .
+COPY . .
 
 RUN apt install Flask apscheduler validators requests
 
