@@ -6,3 +6,6 @@ pylint /var/jenkins_home/workspace/<projekt_name>/backend/pingurl
 ```
 
 2. docker build -t flask_app backend/.
+
+3. Poll SCM
+* * * * *
