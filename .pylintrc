@@ -24,7 +24,7 @@ ignore=CVS
 
 # Add files or directories matching the regex patterns to the ignore-list. The
 # regex matches against paths and can be in Posix or Windows format.
-ignore-paths=
+ignore-paths=backend/.venv
 
 # Files or directories matching the regex patterns are skipped. The regex
 # matches against base names, not paths.
@@ -89,8 +89,7 @@ disable=raw-checker-failed,
         global-statement,
         invalid-name,
         too-many-lines,
-        too-many-arguments,
-        cyclic-import
+        too-many-arguments
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
