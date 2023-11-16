@@ -12,7 +12,7 @@ pipeline {
                 '''
             }
         }
-        stage('Test Test') {
+        stage('Pytest') {
             steps {
                 sh '''
                 python3 -m venv backend/.venv
