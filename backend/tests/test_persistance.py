@@ -19,7 +19,7 @@ def test_delete_watched_url_not_found_error():
     assert str(excinfo.value) == "url_id not found"
 
 
-def test_delete_watched_url():
+def test_delete_watched_url_success():
     """test for successful deletion of url_id"""
     next_id = 0
     time = datetime.fromisoformat("2023-11-16T12:55:07+00:00")
