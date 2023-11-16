@@ -18,7 +18,3 @@ def test_ok_status_false():
     new_obj = PingData(date, time_sec, 404)
     assert not new_obj.ok_status()
 
-
-def test_intentional_fail():
-    """Intentional fail on test"""
-    assert False
