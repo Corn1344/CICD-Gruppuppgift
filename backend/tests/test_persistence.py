@@ -13,4 +13,4 @@ def test_get_watched_url_value_error():
 def test_get_watched_url_Watched_Url_Not_Found_Error():
     """Tests if invalid url raises WatchedUrlNotFoundError"""
     with pytest.raises(WatchedUrlNotFoundError):
-        persistance.get_watched_url(1)
+        persistance.get_watched_url(-1)
