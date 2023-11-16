@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                git url: 'https://github.com/nackc8/cicd-grp--ga-pa-flask-an', branch: 'main'
+                git url: 'https://github.com/nackc8/cicd-grp--ga-pa-flask-an', branch: 'jenkinsfile'
                 sh '''
                 python3 -m venv backend/.venv
                 . backend/.venv/bin/activate
