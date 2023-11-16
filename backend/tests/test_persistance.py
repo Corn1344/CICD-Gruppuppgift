@@ -4,8 +4,6 @@ import pytest
 from pingurl import persistance
 from pingurl.models import WatchedUrl
 
-
-
 def test_delete_watched_url_value_error():
     """test for delete wrong input type"""
     with pytest.raises(ValueError) as excinfo:
@@ -16,7 +14,7 @@ def test_delete_watched_url_value_error():
 def test_delete_watched_url_not_found_error():
     """test for delete url not found error"""
     with pytest.raises(persistance.WatchedUrlNotFoundError) as excinfo:
-        persistance.delete_watched_url(1)
+        persistance.delete_watched_url(-1)
     assert str(excinfo.value) == "url_id not found"
 
 
