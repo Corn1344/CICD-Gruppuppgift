@@ -22,8 +22,9 @@ def test_PingData_ok_status_false():
 
 
 def test_WatchedUrl():
-    """Testing functions business.add_watched_url, persistance.add_watched_url and models.watched_url
-    by creating two urls, later adding them to a list with persistance.add_watched_url and later checking to see if
+    """Testing functions business.add_watched_url, persistance.add_watched_url and 
+    models.watched_url by creating two urls, later adding them to a list with 
+    persistance.add_watched_url and later checking to see if
     the amount is correct by using persistance.get_url_ids"""
     watchedUrls = []
     urls = []
@@ -49,5 +50,3 @@ def test_to_dict():
     new_url = WatchedUrl(dt1, True, 1, url)
     dict_url = WatchedUrl.to_dict(new_url)
     assert isinstance(dict_url, dict)
-
-    
