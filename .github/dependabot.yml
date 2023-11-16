@@ -6,11 +6,13 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: 09:00
+      time: "13:00"
+      timezone: "Europe/Stockholm"
   
   # Check for updates to pip every morning
   - package-ecosystem: "pip"
-    directory: /backend
+    directory: "/backend"
     schedule: 
       interval: "daily"
-      time: 09:00
+      time: "13:00"
+      timezone: "Europe/Stockholm"
