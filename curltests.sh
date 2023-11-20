@@ -44,7 +44,7 @@ else
 fi
 
 delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/0)
-if [[ $getreqid == *'message'* ]]; then
+if [[ $getreqid == *'error'* ]]; then
 	echo "DELETE request with ID failed"
 else
 	echo "DELETE request with ID succeded"
