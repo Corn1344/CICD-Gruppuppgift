@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 docker build -t flask_app backend/.
                 if [ "$(docker ps -a -q -f name=flask_application)" ]; then
