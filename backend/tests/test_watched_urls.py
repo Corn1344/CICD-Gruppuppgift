@@ -63,4 +63,3 @@ def test_post_watched_urls(flask_test):
     urlId = response.json["urlId"]
     response = flask_test.get("/watched-urls/" + str(urlId))
     assert response.status_code == 200
-
