@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+
 ip_addr=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" flask_application):5000
 
 middle_text () {
