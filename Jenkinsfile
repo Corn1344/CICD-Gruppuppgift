@@ -33,7 +33,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                docker build -t flask_app backend/.
+                docker network create docker-network
+		docker build -t flask_app backend/.
                 if [ "$(docker ps -a -q -f name=flask_application)" ]; then
                     docker stop flask_application
                     docker rm flask_application
