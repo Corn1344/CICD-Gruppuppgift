@@ -1,29 +1,61 @@
 #!/bin/bash
+#
 ip_addr=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" flask_application):5000
-echo "Running API tests to ip: $ip_addr..."
-echo ""
+
+middle_text () {
+	COLUMNS=$(tput cols)
+	dots=$((($COLUMNS - ${#1} - 2) / 2))
+	for ((i=1; i<$dots; ++i)); do
+		echo -n "="
+	done
+	echo -n " $1 "
+	for ((i=1; i<$dots; ++i)); do
+		echo -n "="
+	done
+	echo ""
+}
+
+middle_text "Running API tests to ip: $ip_addr"
+
+fail () {
+	middle_text "TEST FAILED"
+	exit 1
+}
+
+success () {
+	middle_text "ALL TESTS PASSED"
+	exit 0
+}
 
 try_conn () {
 	res=$(curl -s -o /dev/null --retry-delay 1 --retry 10 --retry-all-errors -w "%{http_code}" -I http://$ip_addr)
 	if [[ $res == "404" ]]; then
 		echo "Running tests..."
 	else
-		echo "Connection timed out"
+		middle_text "Connection timed out"
 		exit 1
 	fi
 }
 
 assert () {
 	if [[ $1 == *"$2"* ]]; then
-		echo "OK!"
+		echo "....OK!"
 	else
 		echo "FAILED!"
-		exit 1
+		fail
 	fi
 }
 
+show_function_name () {
+	echo -n "$1"
+	dots=$(($(tput cols) - ${#1} - 7))
+	for _ in $(seq 1 $dots); do
+		echo -n "."
+	done
+}
+
 test_watched_url_post () {
-	echo -n "$FUNCNAME..."
+	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls
 	JSON='''
 	{
@@ -39,29 +71,28 @@ test_watched_url_post () {
 }
 
 test_watched_url_get () {
-	echo -n "$FUNCNAME..."
+	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls
 	res=$(curl -s -X GET $URL)
 	assert "$res" "urlIds"
 }
 
-
 test_watched_url_id_get () {
-	echo -n "$FUNCNAME..."
+	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls/$URLID
 	res=$(curl -s -X GET $URL)
 	assert "$res" "activateAt"
 }
 
 test_watched_url_id_delete () {
-	echo -n "$FUNCNAME..."
+	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls/$URLID
 	res=$(curl -s -X DELETE $URL)
 	assert "$res" "message"
 }
 
 test_watched_url_id_delete_should_err () {
-	echo -n "$FUNCNAME..."
+	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls/$URLID
 	res=$(curl -s -X DELETE $URL)
 	assert "$res" "error"
@@ -73,4 +104,4 @@ test_watched_url_id_get
 test_watched_url_id_delete
 test_watched_url_id_delete_should_err
 
-exit 0
+success
