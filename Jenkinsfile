@@ -47,7 +47,7 @@ pipeline {
         }
 	stage('API Tests') {
 	    steps {
-		sh  ./curltests.sh	
+		sh './curltests.sh'	
     }
 }
     }
