@@ -37,7 +37,8 @@ def test_get_watched_urls(flask_test):
 
 def test_post_watched_urls_err_wrong_time_format(flask_test):
     """mock test bad request from wrong time format"""
-    resp_data = b'{"error":"Bad request","message":"The \'activateAt\' parameter must an ISO 8601 date-time."}\n'
+    resp_data = b'{"error":"Bad request","message":"The \'activateAt\'\
+    parameter must an ISO 8601 date-time."}\n'
 
     url = "http://www.example.com"
     dt1 = datetime(2023, 1, 1, tzinfo=timezone.utc)
