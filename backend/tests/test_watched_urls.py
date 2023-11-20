@@ -1,9 +1,8 @@
 """Tests for pingurl/watched_urls.py"""
 from datetime import datetime, timezone
 import pytest
-from pingurl import models, business, watched_urls
+from pingurl import models, business, watched_urls, schedule
 from app import app
-from pingurl import schedule
 
 
 obj = watched_urls
