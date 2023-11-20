@@ -8,7 +8,7 @@ from app import app
 obj = watched_urls
 
 
-@pytest.fixture(scope='function', name='flask_test')
+@pytest.fixture(scope="function", name="flask_test")
 def flask_test_client():
     """This is for mocktest of flask application"""
     with app.test_client() as client:
@@ -16,14 +16,14 @@ def flask_test_client():
 
 
 def test_get_watched_urls_err(flask_test):
-    """This is a mock test that send a get request to /watched-urls/0, 
+    """This is a mock test that send a get request to /watched-urls/0,
     should return error status_code = 404"""
-    response = flask_test.get('/watched-urls/0')
+    response = flask_test.get("/watched-urls/0")
     assert response.status_code == 404
 
 
 def test_get_watched_urls(flask_test):
-    """This is a mock test that sends a get request to /watched-urls/1, 
+    """This is a mock test that sends a get request to /watched-urls/1,
     since i added an url with id 1 it should return
     status code 200"""
     url = "http://www.example.org"
@@ -33,3 +33,17 @@ def test_get_watched_urls(flask_test):
     with app.app_context():
         response = flask_test.get("/watched-urls/1")
     assert response.status_code == 200
+
+
+def test_post_watched_urls_err_wrong_time_format(flask_test):
+    """mock test bad request from wrong time format"""
+    resp_data = b'{"error":"Bad request","message":"The \'activateAt\' parameter must an ISO 8601 date-time."}\n'
+
+    url = "http://www.example.com"
+    dt1 = datetime(2023, 1, 1, tzinfo=timezone.utc)
+
+    json_input = {"activateAt": dt1, "force": True, "periodSec": 30, "url": url}
+
+    response = flask_test.post("/watched-urls", json=json_input)
+    assert response.status_code == 400
+    assert response.data == resp_data
