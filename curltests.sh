@@ -2,10 +2,8 @@
 ip_addr=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" flask_application):5000
 echo "Running API tests to ip: $ip_addr. . ."
 echo ""
-postreq=$(curl -X POST http://$ip_addr/watched-urls -H "Content-Type: application/json" -d '{"activateAt": "2023-11-06T01:36:28+00:00", "force": true, "periodSec": 30, "url": "https://www.youtube.com"}')
-getreq=$(curl -X GET http://$ip_addr/watched-urls)
-getreqid=$(curl -X GET http://$ip_addr/watched-urls/0)
 
+postreq=$(curl -X POST http://$ip_addr/watched-urls -H "Content-Type: application/json" -d '{"activateAt": "2023-11-06T01:36:28+00:00", "force": true, "periodSec": 30, "url": "https://www.youtube.com"}')
 if [[ $postreq == *'message'* ]]; then
 	echo "POST request succeded"
 else
@@ -13,6 +11,7 @@ else
 	exit 1
 fi
 
+getreq=$(curl -X GET http://$ip_addr/watched-urls)
 if [[ $getreq == *'urlIds'* ]]; then
 	echo "GET request succeded"
 else
@@ -20,6 +19,7 @@ else
 	exit 1
 fi
 
+getreqid=$(curl -X GET http://$ip_addr/watched-urls/0)
 if [[ $getreqid == *'activateAt'* ]]; then
 	echo "GET request with ID succeded"
 else
