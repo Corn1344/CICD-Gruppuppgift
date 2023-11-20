@@ -52,3 +52,19 @@ def test_delete_url(flask_test):
     response = flask_test.delete(f"/watched-urls/{url_id}")
     print(response)
     assert response.status_code == 200
+
+
+def test_post_watched_urls(flask_test):
+    """This is a mock test that send a post request to /watched-urls,
+    and then a get request to /watched_urls/<id> from the id it got
+    to see that the url object was created."""
+    json_query = {
+        "activateAt": "2023-11-06T01:36:28+00:00",
+        "force": True,
+        "periodSec": 30,
+        "url": "http://dn.se"
+        }
+    response = flask_test.post('/watched-urls', json=json_query)
+    urlId = response.json["urlId"]
+    response = flask_test.get("/watched-urls/" + str(urlId))
+    assert response.status_code == 200
