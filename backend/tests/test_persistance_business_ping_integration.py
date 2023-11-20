@@ -7,6 +7,18 @@ from pingurl import ping
 from pingurl.models import WatchedUrl
 
 
+# @pytest.fixture(scope="function", autouse=True)
+# def reset_persistance():
+#     """Resets global variables between tests"""
+#     pings_before = persistance.pings
+#     watched_urls_before = persistance.watched_urls
+#     next_id_before = persistance.next_id
+#     yield
+#     persistance.pings = pings_before
+#     persistance.watched_urls = watched_urls_before
+#     persistance.next_id = next_id_before
+
+
 def test_added_url_in_get_urls():
     """
     Tests if persistance.get_url_ids() can get
