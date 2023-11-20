@@ -1,7 +1,7 @@
 """Tests for pingurl/watched_urls.py"""
 from datetime import datetime, timezone
 import pytest
-from pingurl import models, business, watched_urls, schedule
+from pingurl import models, business, watched_urls, persistance, schedule
 from app import app
 
 
@@ -26,6 +26,8 @@ def test_get_watched_urls(flask_test):
     """This is a mock test that sends a get request to /watched-urls/1,
     since i added an url with id 1 it should return
     status code 200"""
+    persistance.next_id = 1
+
     url = "http://www.example.org"
     dt1 = datetime(2023, 1, 1, tzinfo=timezone.utc)
     new_url = models.WatchedUrl(dt1, True, 1, url)

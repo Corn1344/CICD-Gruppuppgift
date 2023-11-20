@@ -89,8 +89,8 @@ def add_ping_data(ping_data: PingData):
 def get_stats():
     """returns stats"""
     ping_count = 0
-    for url_id in pings.items():
-        ping_count += len(pings[url_id])
+    for ping_list in pings.items():
+        ping_count += len(ping_list)
 
     return {"watchedUrls": len(watched_urls), "pings": ping_count}
 
