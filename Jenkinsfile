@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh '.deploy.sh'
+                sh './deploy.sh'
             }
         }
     	stage('API Tests') {
