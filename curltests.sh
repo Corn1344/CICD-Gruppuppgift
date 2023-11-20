@@ -12,6 +12,7 @@ else
 fi
 
 postreq=$(curl -s -X POST http://$ip_addr/watched-urls -H "Content-Type: application/json" -d '{"activateAt": "2023-11-06T01:36:28+00:00", "force": true, "periodSec": 30, "url": "https://www.youtube.com"}')
+URLID=$(echo $postreq | grep -oE "[0-9]+")
 if [[ $postreq == *'message'* ]]; then
 	echo "POST request succeded"
 else
@@ -27,7 +28,7 @@ else
 	exit 1
 fi
 
-getreqid=$(curl -s -X GET http://$ip_addr/watched-urls/0)
+getreqid=$(curl -s -X GET http://$ip_addr/watched-urls/$URLID)
 if [[ $getreqid == *'activateAt'* ]]; then
 	echo "GET request with ID succeded"
 else
@@ -35,7 +36,7 @@ else
 	exit 1
 fi
 
-delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/0)
+delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/$URLID)
 if [[ $delreqid == *'message'* ]]; then
 	echo "DELETE request with ID succeded"
 else
@@ -43,11 +44,11 @@ else
 	exit 1
 fi
 
-delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/0)
-if [[ $getreqid == *'error'* ]]; then
-	echo "DELETE request with ID failed"
+delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/$URLID)
+if [[ $delreqid == *'error'* ]]; then
+	echo "DELETE request attempt 2 successful failure"
 else
-	echo "DELETE request with ID succeded"
+	echo "DELETE request attempt 2 failure"
 	exit 1
 fi
 
