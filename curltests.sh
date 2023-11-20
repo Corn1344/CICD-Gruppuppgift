@@ -2,6 +2,7 @@
 ip_addr=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" flask_application):5000
 echo "Running API tests to ip: $ip_addr. . ."
 echo ""
+
 response=$(curl -s -o /dev/null --retry-delay 1 --retry 10 --retry-all-errors -w "%{http_code}" -I http://$ip_addr)
 if [[ $response == "404" ]]; then
 	echo "Running tests ..."
@@ -33,4 +34,21 @@ else
 	echo "GET request with ID failed"
 	exit 1
 fi
+
+delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/0)
+if [[ $delreqid == *'message'* ]]; then
+	echo "DELETE request with ID succeded"
+else
+	echo "DELETE request with ID failed"
+	exit 1
+fi
+
+delreqid=$(curl -s -X DELETE http://$ip_addr/watched-urls/0)
+if [[ $getreqid == *'error'* ]]; then
+	echo "DELETE request with ID failed"
+else
+	echo "DELETE request with ID succeded"
+	exit 1
+fi
+
 exit 0
