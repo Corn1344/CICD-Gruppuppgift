@@ -3,7 +3,7 @@
 ip_addr=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" flask_application):5000
 
 middle_text () {
-	COLUMNS=$(tput cols)
+	COLUMNS=$(tput cols || 80)
 	dots=$((($COLUMNS - ${#1} - 2) / 2))
 	for ((i=1; i<$dots; ++i)); do
 		echo -n "="
@@ -48,7 +48,7 @@ assert () {
 
 show_function_name () {
 	echo -n "$1"
-	dots=$(($(tput cols) - ${#1} - 7))
+	dots=$(($(tput cols || 80) - ${#1} - 7))
 	for _ in $(seq 1 $dots); do
 		echo -n "."
 	done
