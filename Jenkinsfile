@@ -35,9 +35,9 @@ pipeline {
                 sh './deploy.sh'
             }
         }
-    	stage('API Tests') {
-	        steps {
-		        sh './curltests.sh'
+        stage('API Tests') {
+            steps {
+                sh './curltests.sh'
             }
         }
     }
