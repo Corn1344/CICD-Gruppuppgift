@@ -58,3 +58,30 @@ def test_add_watched_url_has_id_value_error():
     wu = WatchedUrl(datetime.now(), False, 1, "http://www.example.org", 0)
     with pytest.raises(ValueError):
         persistance.add_watched_url(wu)
+
+@pytest.fixture(scope="function", name="flask_test")
+def test_get_url_data_get_url():
+    """Test get_url_data()"""
+    json_data = {
+        "activateAt": "2023-11-06T02:35:05.923000+00:00",
+        "force": false,
+        "periodSec": 10,
+        "pings": [
+            {
+                "pingedAt": "2023-11-09T03:57:13+00:00",
+                "responseTimeSec": 0.052734,
+                "statusCode": 200
+            },
+            {
+                "pingedAt": "2023-11-09T03:57:23+00:00",
+                "responseTimeSec": 0.052734,
+                "statusCode": 200
+            },
+        ],
+        "url": "http://google.com",
+        "urlId": 1
+    }
+    post_json = flask_test.post('/watched-urls', json=json_data)
+    urlId = post_json.json["urlId"]
+    response = persistance.get_url_data(urlId)
+    assert response.json["url"] == "http://google.com"
