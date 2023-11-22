@@ -100,6 +100,7 @@ test_watched_url_id_delete_should_err () {
 }
 
 start_time=$SECONDS
+try_conn
 test_watched_url_post
 test_watched_url_get
 test_watched_url_id_get
