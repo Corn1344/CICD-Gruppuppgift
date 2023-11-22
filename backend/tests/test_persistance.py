@@ -5,6 +5,11 @@ from pingurl import persistance
 from pingurl.persistance import WatchedUrlNotFoundError
 from pingurl.models import WatchedUrl
 
+@pytest.fixture(scope="function", name="flask_test")
+def flask_test_client():
+    """This is for mocktest of flask application"""
+    with app.test_client() as client:
+        yield client
 
 def test_get_watched_url_value_error():
     """Tests if non int raises ValueError"""
@@ -59,7 +64,6 @@ def test_add_watched_url_has_id_value_error():
     with pytest.raises(ValueError):
         persistance.add_watched_url(wu)
 
-@pytest.fixture(scope="function", name="flask_test")
 def test_get_url_data_get_url():
     """Test get_url_data()"""
     json_data = {
