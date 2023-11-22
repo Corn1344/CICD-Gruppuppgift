@@ -5,29 +5,17 @@ pipeline {
         stage('Build') {
             steps {
                 git url: 'https://github.com/nackc8/cicd-grp--ga-pa-flask-an', branch: 'main'
-                sh '''
-                python3 -m venv backend/.venv
-                . backend/.venv/bin/activate
-                pip install -r backend/requirements.txt
-                '''
+                sh './build.sh'
             }
         }
         stage('Pytest') {
             steps {
-                sh '''
-                python3 -m venv backend/.venv
-                . backend/.venv/bin/activate
-                pytest backend/
-                '''
+                sh './pytest.sh'
             }
         }
         stage('Test Lint') {
             steps {
-                sh '''
-                python3 -m venv backend/.venv
-                . backend/.venv/bin/activate
-                pylint backend/
-                '''
+                sh './test_lint.sh'
             }
         }
         stage('Deploy') {
