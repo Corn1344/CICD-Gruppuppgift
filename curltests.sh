@@ -106,6 +106,13 @@ test_watched_url_id_delete_should_err () {
 	assert "$res" "error"
 }
 
+test_get_stats () {
+	show_function_name "$FUNCNAME"
+	URL=http://$ip_addr/stats
+	res=$(curl -s -X GET $URL)
+	assert "$res" "pings"
+}
+
 tests=(
 test_watched_url_post
 test_watched_url_get
@@ -113,6 +120,7 @@ test_watched_url_id_get
 test_watched_url_id_delete
 test_watched_url_id_get_should_err
 test_watched_url_id_delete_should_err
+test_get_stats
 )
 
 number_of_tests=0
