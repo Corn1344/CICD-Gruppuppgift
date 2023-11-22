@@ -69,22 +69,9 @@ def test_get_url_data_get_url(flask_test):
     """Test get_url_data()"""
     json_data = {
         "activateAt": "2023-11-06T02:35:05.923000+00:00",
-        "force": false,
+        "force": False,
         "periodSec": 10,
-        "pings": [
-            {
-                "pingedAt": "2023-11-09T03:57:13+00:00",
-                "responseTimeSec": 0.052734,
-                "statusCode": 200
-            },
-            {
-                "pingedAt": "2023-11-09T03:57:23+00:00",
-                "responseTimeSec": 0.052734,
-                "statusCode": 200
-            },
-        ],
         "url": "http://google.com",
-        "urlId": 1
     }
     post_json = flask_test.post('/watched-urls', json=json_data)
     urlId = post_json.json["urlId"]
