@@ -65,7 +65,7 @@ def test_add_watched_url_has_id_value_error():
     with pytest.raises(ValueError):
         persistance.add_watched_url(wu)
 
-def test_get_url_data_get_url():
+def test_get_url_data_get_url(flask_test):
     """Test get_url_data()"""
     json_data = {
         "activateAt": "2023-11-06T02:35:05.923000+00:00",
@@ -89,4 +89,4 @@ def test_get_url_data_get_url():
     post_json = flask_test.post('/watched-urls', json=json_data)
     urlId = post_json.json["urlId"]
     response = persistance.get_url_data(urlId)
-    assert response.json["url"] == "http://google.com"
+    assert response.url == "http://google.com"
