@@ -23,7 +23,7 @@ fail () {
 }
 
 success () {
-	middle_text "ALL TESTS PASSED in $(($end_time - $start_time)) seconds"
+	middle_text "$i TESTS PASSED in $(($end_time - $start_time)) seconds"
 	exit 0
 }
 
