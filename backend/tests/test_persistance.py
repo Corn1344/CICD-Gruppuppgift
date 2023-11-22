@@ -4,6 +4,7 @@ import pytest
 from pingurl import persistance
 from pingurl.persistance import WatchedUrlNotFoundError
 from pingurl.models import WatchedUrl
+from app import app
 
 @pytest.fixture(scope="function", name="flask_test")
 def flask_test_client():
