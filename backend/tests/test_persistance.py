@@ -75,5 +75,5 @@ def test_get_url_data_get_url(flask_test):
     }
     post_json = flask_test.post('/watched-urls', json=json_data)
     urlId = post_json.json["urlId"]
-    response = persistance.get_url_data(urlId)
-    assert response.url == "http://google.com"
+    response = persistance.get_url_data(urlId).json["url"]
+    assert response == "http://google.com"
