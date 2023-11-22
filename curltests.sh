@@ -39,16 +39,16 @@ try_conn () {
 
 assert () {
 	if [[ $1 == *"$2"* ]]; then
-		echo "....OK!"
+		echo -n "....OK!"
 	else
-		echo "FAILED!"
+		echo -n "FAILED!"
 		fail
 	fi
 }
 
 show_function_name () {
 	echo -n "$1"
-	dots=$(($(tput cols 2> /dev/null || echo 80) - ${#1} - 7))
+	dots=$(($(tput cols 2> /dev/null || echo 80) - ${#1} - 7 - 6))
 	for _ in $(seq 1 $dots); do
 		echo -n "."
 		sleep 0.05
@@ -99,13 +99,28 @@ test_watched_url_id_delete_should_err () {
 	assert "$res" "error"
 }
 
-start_time=$SECONDS
-try_conn
+tests=(
 test_watched_url_post
 test_watched_url_get
 test_watched_url_id_get
 test_watched_url_id_delete
 test_watched_url_id_delete_should_err
+)
+
+number_of_tests=0
+for t in "${tests[@]}"; do
+	number_of_tests=$(($number_of_tests + 1))
+done
+
+start_time=$SECONDS
+try_conn
+i=0
+for t in "${tests[@]}"; do
+	i=$(($i + 1))
+	$t
+	percent=$(((100 * $i) / $number_of_tests))
+	echo "[$percent%]"
+done
 end_time=$SECONDS
 
 success
