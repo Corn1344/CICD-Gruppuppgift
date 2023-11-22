@@ -81,15 +81,17 @@ def test_post_watched_urls(flask_test):
         "url": "http://dn.se",
     }
     response = flask_test.post("/watched-urls", json=json_query)
-    urlId = response.json["urlId"]
-    response = flask_test.get("/watched-urls/" + str(urlId))
+    url_id = response.json["urlId"]
+    response = flask_test.get("/watched-urls/" + str(url_id))
     assert response.status_code == 200
+
 
 def test_no_wurl_get_stats():
     """This is a mock test that doesn't add any url to the watched list
     and makes sure it does not return any stats"""
     response = persistance.get_stats()
     assert response == {"watchedUrls": 0, "pings": 0}
+
 
 def test_get_stats():
     """In this test we add an URL to the watched list and use get stats and make sure there
