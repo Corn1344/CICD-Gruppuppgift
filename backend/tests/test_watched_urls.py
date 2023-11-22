@@ -84,3 +84,19 @@ def test_post_watched_urls(flask_test):
     urlId = response.json["urlId"]
     response = flask_test.get("/watched-urls/" + str(urlId))
     assert response.status_code == 200
+
+def test_no_wurl_get_stats():
+    """This is a mock test that doesn't add any url to the watched list
+    and makes sure it does not return any stats"""
+    response = persistance.get_stats()
+    assert response == "watchedUrls: 0 pings: 0"
+
+def test_get_stats():
+    """In this test we add an URL to the watched list and use get stats and make sure there
+    is an added URL and that it gets pinged when added"""
+    url = "http://www.example.org"
+    dt1 = datetime(2023, 1, 1, tzinfo=timezone.utc)
+    new_url = models.WatchedUrl(dt1, True, 1, url)
+    business.add_watched_url(new_url)
+    response = persistance.get_stats()
+    assert response == "watchedUrls: 1 pings: 1"
