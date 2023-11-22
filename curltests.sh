@@ -23,7 +23,7 @@ fail () {
 }
 
 success () {
-	middle_text "ALL TESTS PASSED"
+	middle_text "ALL TESTS PASSED in $(($end_time - $start_time)) seconds"
 	exit 0
 }
 
@@ -51,6 +51,7 @@ show_function_name () {
 	dots=$(($(tput cols 2> /dev/null || echo 80) - ${#1} - 7))
 	for _ in $(seq 1 $dots); do
 		echo -n "."
+		sleep 0.05
 	done
 }
 
@@ -98,10 +99,13 @@ test_watched_url_id_delete_should_err () {
 	assert "$res" "error"
 }
 
+start_time=$SECONDS
+try_conn
 test_watched_url_post
 test_watched_url_get
 test_watched_url_id_get
 test_watched_url_id_delete
 test_watched_url_id_delete_should_err
+end_time=$SECONDS
 
 success
