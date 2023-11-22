@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                git url: 'https://github.com/nackc8/cicd-grp--ga-pa-flask-an', branch: 'main'
+                git url: 'https://github.com/Corn1344/CICD-Gruppuppgift', branch: 'main'
                 sh './build.sh'
             }
         }
