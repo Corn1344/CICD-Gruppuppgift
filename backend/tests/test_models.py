@@ -22,8 +22,8 @@ def test_PingData_ok_status_false():
 
 
 def test_WatchedUrl():
-    """Testing functions business.add_watched_url, persistance.add_watched_url and 
-    models.watched_url by creating two urls, later adding them to a list with 
+    """Testing functions business.add_watched_url, persistance.add_watched_url and
+    models.watched_url by creating two urls, later adding them to a list with
     persistance.add_watched_url and later checking to see if
     the amount is correct by using persistance.get_url_ids"""
     watchedUrls = []
@@ -38,7 +38,7 @@ def test_WatchedUrl():
     watchedUrls.append(url2)
     for url in watchedUrls:
         urls.append(pingurl.persistance.add_watched_url(url))
-    print (urls)
+    print(urls)
     assert url_id in pingurl.persistance.get_url_ids()
     assert len(urls) == 2
 

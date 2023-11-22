@@ -100,7 +100,7 @@ Example request body:
 #### Get Watched URL Data
 
 - `GET /watched-urls/{urlId}`: Retrieve data for a specific watched URL by its ID.
-  - Status codes: 
+  - Status codes:
     - `200 (OK)`: The data for the watched URL was successfully retrieved.
     - `404 (Not Found)`: No data could be found for the provided URL ID.
   - Returns: A JSON object with the following structure:
