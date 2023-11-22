@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 import validators
 
+
 class WatchedUrl:
     """watched url instance"""
 
