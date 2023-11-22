@@ -23,7 +23,7 @@ fail () {
 }
 
 success () {
-	middle_text "ALL TESTS PASSED in $(($end_time - $start_time)) seconds"
+	middle_text "$i TESTS PASSED in $(($end_time - $start_time)) seconds"
 	exit 0
 }
 
@@ -92,6 +92,13 @@ test_watched_url_id_delete () {
 	assert "$res" "message"
 }
 
+test_watched_url_id_get_should_err () {
+	show_function_name "$FUNCNAME"
+	URL=http://$ip_addr/watched-urls/$URLID
+	res=$(curl -s -X GET $URL)
+	assert "$res" "error"
+}
+
 test_watched_url_id_delete_should_err () {
 	show_function_name "$FUNCNAME"
 	URL=http://$ip_addr/watched-urls/$URLID
@@ -111,6 +118,7 @@ test_watched_url_post
 test_watched_url_get
 test_watched_url_id_get
 test_watched_url_id_delete
+test_watched_url_id_get_should_err
 test_watched_url_id_delete_should_err
 test_get_stats
 )
