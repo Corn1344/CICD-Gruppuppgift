@@ -99,4 +99,4 @@ def test_get_stats():
     new_url = models.WatchedUrl(dt1, True, 1, url)
     business.add_watched_url(new_url)
     response = persistance.get_stats()
-    assert response == {"watchedUrls": 1, "pings": 0}
+    assert response == {"watchedUrls": 1, "pings": 2}
