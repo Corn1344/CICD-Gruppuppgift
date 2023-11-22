@@ -112,6 +112,7 @@ test_watched_url_get
 test_watched_url_id_get
 test_watched_url_id_delete
 test_watched_url_id_delete_should_err
+test_get_stats
 )
 
 number_of_tests=0
